@@ -1,4 +1,4 @@
-package com.example.smartlink;
+package com.smartlink.smartlink;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
         WebView webView = (WebView) findViewById(R.id.webview);
         WebSettings webSettings = webView.getSettings();
 
+        System.out.println(AccessToken.getCurrentAccessToken());
         String accessToken = Objects.requireNonNull(AccessToken.getCurrentAccessToken()).getToken();
 
         webSettings.setJavaScriptEnabled(true);

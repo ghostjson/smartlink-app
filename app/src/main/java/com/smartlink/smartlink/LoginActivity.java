@@ -1,4 +1,4 @@
-package com.example.smartlink;
+package com.smartlink.smartlink;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,9 +17,7 @@ import com.facebook.LoggingBehavior;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 
-import java.util.Arrays;
 import java.util.Collections;
-import java.util.Objects;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -33,12 +31,18 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         Button loginButton = (Button) findViewById(R.id.login_button);
         loginButton.setOnClickListener(LoginActivity.this);
 
+        FacebookSdk.setIsDebugEnabled(true);
+        FacebookSdk.addLoggingBehavior(LoggingBehavior.INCLUDE_ACCESS_TOKENS);
+
         callbackManager = CallbackManager.Factory.create();
+
+        Intent mainActivityIntent = new Intent(this, MainActivity.class);
 
         LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
-                // success
+                startActivity(mainActivityIntent);
+                finish();
             }
 
             @Override
@@ -57,10 +61,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     public void onClick(View view) {
         LoginManager.getInstance().logInWithReadPermissions(LoginActivity.this, Collections.singletonList("public_profile"));
-
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
-        finish();
     }
 
     @Override

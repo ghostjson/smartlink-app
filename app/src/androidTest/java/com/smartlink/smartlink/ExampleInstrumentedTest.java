@@ -1,4 +1,4 @@
-package com.example.smartlink;
+package com.smartlink.smartlink;
 
 import android.content.Context;
 
