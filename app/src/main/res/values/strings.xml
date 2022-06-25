@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">Smartlink</string>
+    <string name="facebook_app_id">512848473966078</string>
+    <string name="fb_login_protocol_scheme">fb1234</string>
+    <string name="facebook_client_token">4b5a748fc4eb4cd2df62bb43996157ae</string>
+</resources>
