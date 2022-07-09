@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.webkit.CookieManager;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -15,7 +14,8 @@ import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 
-    String baseURL = "https://main.dmxqa22ma9yp.amplifyapp.com";
+    String frontendBaseURL = "https://main.dmxqa22ma9yp.amplifyapp.com";
+    String backendAuthURL = "http://54.161.82.165:3000/api/v1/auth/facebook";
 
     @SuppressLint("SetJavaScriptEnabled")
     @Override
@@ -26,14 +26,14 @@ public class MainActivity extends AppCompatActivity {
         WebView webView = (WebView) findViewById(R.id.webview);
         WebSettings webSettings = webView.getSettings();
 
+        // get access token from the facebook
         System.out.println(AccessToken.getCurrentAccessToken());
-        String accessToken = Objects.requireNonNull(AccessToken.getCurrentAccessToken()).getToken();
+        String facebookAccessToken = Objects.requireNonNull(AccessToken.getCurrentAccessToken()).getToken();
 
         webSettings.setJavaScriptEnabled(true);
-        webView.loadUrl(baseURL);
-
-        CookieManager.getInstance().setCookie(baseURL, "token=" + accessToken + "; path=/");
+        webView.loadUrl(frontendBaseURL + "/login?token=" + facebookAccessToken);
 
         webView.setWebViewClient(new WebViewClient());
     }
+
 }
