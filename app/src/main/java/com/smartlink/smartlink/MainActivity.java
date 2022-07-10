@@ -3,6 +3,8 @@ package com.smartlink.smartlink;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -33,7 +35,21 @@ public class MainActivity extends AppCompatActivity {
         webSettings.setJavaScriptEnabled(true);
         webView.loadUrl(frontendBaseURL + "/login?token=" + facebookAccessToken);
 
-        webView.setWebViewClient(new WebViewClient());
+        Intent loginActivityIntent = new Intent(this, LoginActivity.class);
+
+        webView.setWebViewClient(new WebViewClient(){
+
+            @Override
+            public void onPageStarted(WebView view, String url, Bitmap favicon){
+
+                 if (url.endsWith("/login")){
+                    startActivity(loginActivityIntent);
+                    view.stopLoading();
+                }
+
+                super.onPageStarted(view, url, favicon);
+            }
+        });
     }
 
 }
